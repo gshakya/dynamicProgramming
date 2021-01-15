@@ -1,14 +1,20 @@
-def howSum(targetSum : int,numbers : [int] ):
+def howSum(targetSum : int,numbers : [int] , memo = None):
+  if(memo==None):
+    memo ={}
   if(targetSum == 0):
     return []
   if(targetSum < 0):
     return None
+  if(targetSum in memo):
+    return memo[targetSum]
   for n in numbers:
     remainder = targetSum-n
-    result = howSum(remainder,numbers)
+    result = howSum(remainder,numbers,memo)
     if(result != None):
       result.append(n)
+      memo[remainder]=result
       return result
+  memo[targetSum]=None
   return None
 
 print(howSum(7,[2,3]))
